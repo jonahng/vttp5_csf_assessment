@@ -9,6 +9,46 @@
   </div>
 </div>
 
+
+
+<!-- HTML CODE FOR MENU -->
+
+<div *ngIf="menu$ | async as menu">
+  <div *ngIf="menu.length > 0">
+    <div *ngFor="let m of menu">
+      <div>
+        <div>
+        </div>
+        <div>
+          <button type="button" class="btn btn-warning" >REMOVE ITEM</button>
+          Name: <span>{{ m.name }}</span>
+          description: <span>{{ m.description }}</span>
+          Quantity: <span>{{ m.description }}</span>
+          <button type="button" class="btn btn-success">ADD ITEM</button>
+        </div>
+      </div>
+      <div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>SORRY MY FRONT END IS NOT WORKING WELL, but i have written as much code as i can in each component's typescript and html files, please refer to those. Thank you.</h4>
 <!-- each row display a single mene item -->
 <div class="row mb-2">
   <div class="col">

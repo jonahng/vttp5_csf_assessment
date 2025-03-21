@@ -11,6 +11,7 @@ import { PlaceOrderComponent } from './components/place-order.component';
 import { ConfirmationComponent } from './components/confirmation.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import { InfostoreService } from './infostore.service';
 
 
 /* const appRoutes: Routes = [
@@ -28,7 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule, ReactiveFormsModule,AppRoutingModule
   ],
-  providers: [ provideHttpClient() ],
+  providers: [ provideHttpClient() , InfostoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

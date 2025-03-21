@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { Component, inject, OnInit } from '@angular/core';
+import { lastValueFrom, Observable } from 'rxjs';
 import { menuItem } from '../models';
+import { InfostoreService } from '../infostore.service';
 
 @Component({
   selector: 'app-menu',
@@ -9,15 +10,17 @@ import { menuItem } from '../models';
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit{
   // TODO: Task 2
-  constructor(private httpClient: HttpClient){}
 
+  private infoSvc = inject(InfostoreService)
 
-  //getting the menu items from the server
-  getMenu(){
-    return lastValueFrom(this.httpClient.get<menuItem[]>("/api/menu"))
+  menu$!: Observable<menuItem[]>
+
+  ngOnInit(): void {
+    this.menu$=this.infoSvc.getMenuItems()
   }
+
 
 
 }
