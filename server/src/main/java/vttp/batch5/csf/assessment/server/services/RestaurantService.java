@@ -1,6 +1,7 @@
 package vttp.batch5.csf.assessment.server.services;
 
 import java.io.StringReader;
+import java.util.Date;
 import java.util.List;
 
 import org.bson.Document;
@@ -81,8 +82,18 @@ public class RestaurantService {
     ResponseEntity<String> GatewayResponse = restTemplate.exchange(request, String.class);
     //READING RESPONSE FROM SERVER
     JsonReader jsonReader = Json.createReader(new StringReader(GatewayResponse.getBody()));
-    JsonObject jo1 = jsonReader.readObject();
+    JsonObject GatewayResponseJson = jsonReader.readObject();
 
+    int epochDate = GatewayResponseJson.getInt("timestamp");
+    Date timestampDate = new Date(epochDate);
+
+    //adding to mysql place_orders
+    restaurantRepository.insertOrderAndPayment(foodOrder.getOrder_id(), GatewayResponseJson.getString("payment_id") ,
+    timestampDate , foodOrder.getTotalOrderPrice(), foodOrder.getUsername());
+    
+
+    //add to mongodb
+    
 
   }
 

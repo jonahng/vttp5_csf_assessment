@@ -1,23 +1,24 @@
 package vttp.batch5.csf.assessment.server.repositories;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 import vttp.batch5.csf.assessment.server.controllers.RestaurantController;
+import vttp.batch5.csf.assessment.server.services.RestaurantService;
 
 // Use the following class for MySQL database
 @Repository
 public class RestaurantRepository {
 
-    private final RestaurantController restaurantController;
+
     @Autowired
     JdbcTemplate jdbcTemplate;
 
 
-    RestaurantRepository(RestaurantController restaurantController) {
-        this.restaurantController = restaurantController;
-    }
+
 
 
 
@@ -39,6 +40,19 @@ public class RestaurantRepository {
             return true;
         }
         return false;
+    }
+
+
+    public void insertOrderAndPayment(String order_id, String payment_id, Date order_date, double total, String username){
+        String SQL_INSERT_ORDER = "insert into place_orders(order_id,payment_id,order_date,total,username) values (?,?,?,?,?)";
+        try {
+            int added = jdbcTemplate.update(SQL_INSERT_ORDER,order_id,payment_id,order_date,total,username);
+            System.out.println("ADDED TO SQL:" + order_id);
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("ERROR ADDING TO MYSQL");
+        }
+        
     }
 
 }
