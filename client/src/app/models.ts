@@ -5,3 +5,16 @@ export interface menuItem{
     description: string,
     price: number
 }
+
+export interface Order{
+    username: string,
+    password: string,
+    items: menuItem[]
+}
+
+export interface ServerReceipt{
+    orderId : string,
+    paymentId: string,
+    total: number,
+    timestamp: Date
+}

@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { menuItem } from '../models';
+import { menuItem, Order, ServerReceipt } from '../models';
 import { InfostoreService } from '../infostore.service';
 
 @Component({
@@ -17,7 +17,15 @@ export class PlaceOrderComponent implements OnInit{
   currentCart!: menuItem[]
   form!: FormGroup
   subtotal!: number
+  paymentId!: string;
 
+  
+
+  order: Order = {
+    username: '',
+    password: '',
+    items: []
+    }
 
   ngOnInit(): void {
     this.form = this.createForm();
@@ -34,6 +42,17 @@ export class PlaceOrderComponent implements OnInit{
       password: this.fb.control<string>('',Validators.required),
       items: this.fb.control<menuItem>
     })
+  }
+
+
+  submitForm(){
+    this.order = this.form.value
+    this.infoSvc.checkout(this.order).subscribe({
+      next: (response: ServerReceipt) =>{
+        this.paymentId = response.orderId;
+      }
+    })
+
   }
 
 }
