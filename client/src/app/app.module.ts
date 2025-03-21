@@ -10,13 +10,14 @@ import { PlaceOrderComponent } from './components/place-order.component';
 
 import { ConfirmationComponent } from './components/confirmation.component';
 import { RouterModule, Routes } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 
 
-const appRoutes: Routes = [
+/* const appRoutes: Routes = [
   { path: '', component: MenuComponent },
   //{ path: 'game/:gid', component: DetailsComponent },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
-]
+] */
 
 
 
@@ -25,7 +26,7 @@ const appRoutes: Routes = [
     AppComponent, MenuComponent, PlaceOrderComponent, ConfirmationComponent
   ],
   imports: [
-    BrowserModule, ReactiveFormsModule,RouterModule.forRoot(appRoutes)
+    BrowserModule, ReactiveFormsModule,AppRoutingModule
   ],
   providers: [ provideHttpClient() ],
   bootstrap: [AppComponent]
