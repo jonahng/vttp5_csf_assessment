@@ -6,13 +6,14 @@ public class FoodOrder {
     private String username;
     private String password;
     private JsonArray items;
+    private String order_id;
 
 
     
     public FoodOrder() {
     }
 
-    
+
     public String getUsername() {
         return username;
     }
@@ -30,6 +31,13 @@ public class FoodOrder {
     }
     public void setItems(JsonArray items) {
         this.items = items;
+    }
+
+    public String getOrder_id() {
+        return order_id;
+    }
+    public void setOrder_id(String order_id) {
+        this.order_id = order_id;
     }
 
 

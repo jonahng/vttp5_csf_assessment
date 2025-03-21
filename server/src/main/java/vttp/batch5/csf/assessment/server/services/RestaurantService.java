@@ -56,9 +56,7 @@ public class RestaurantService {
         foodOrder.setPassword(jo1.getString("password"));
         foodOrder.setItems(jo1.getJsonArray("items"));
 
-
-        
-			System.out.println("USERNAME RECEIVED FROM CLIENT:" + foodOrder.getUsername());
+			System.out.println("USERNAME RECEIVED FROM CLIENT:" + foodOrder.getUsername() + foodOrder.getItems());
 			return foodOrder;
   }
 
