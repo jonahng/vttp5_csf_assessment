@@ -16,9 +16,40 @@ export class MenuComponent implements OnInit{
   private infoSvc = inject(InfostoreService)
 
   menu$!: Observable<menuItem[]>
+  currentTotalPrice!: number
+
+  currentCart!: menuItem[]
+
+
+
 
   ngOnInit(): void {
+    //calls the server for json list of menu items
     this.menu$=this.infoSvc.getMenuItems()
+  }
+
+
+  //calculates total price by adding prices of all items in the cart
+  calculateCurrentTotalPrice(){
+    this.currentTotalPrice = 0
+    for (let index = 0; index < this.currentCart.length; index++) {
+      const element = this.currentCart[index];
+      this.currentTotalPrice = this.currentTotalPrice + element.price
+    }
+  }
+
+  addItem(m : menuItem){
+    this.currentCart.push(m)
+
+  }
+
+  removeItem(m : menuItem){
+    
+  }
+
+  placeOrder(){
+    this.infoSvc.currentCart = this.currentCart;
+
   }
 
 

@@ -1,8 +1,8 @@
 <div class="row mt-3">
   <div class="col d-flex justify-content-between align-items-center">
-    <div class="fs-1 fw-bold text-primary">Menu ($XXX)</div>
+    <div class="fs-1 fw-bold text-primary">Menu ${{currentTotalPrice}}</div>
     <div>
-      <button type="button" class="btn btn-primary">
+      <button type="button" class="btn btn-primary" (click)="placeOrder()">
         Place Order (XXX)
       </button>
     </div>
@@ -20,11 +20,11 @@
         <div>
         </div>
         <div>
-          <button type="button" class="btn btn-warning" >REMOVE ITEM</button>
+          <button type="button" class="btn btn-warning" (click)="removeItem(m)">REMOVE ITEM</button>
           Name: <span>{{ m.name }}</span>
           description: <span>{{ m.description }}</span>
           Quantity: <span>{{ m.description }}</span>
-          <button type="button" class="btn btn-success">ADD ITEM</button>
+          <button type="button" class="btn btn-success" (click)="addItem(m)">ADD ITEM</button>
         </div>
       </div>
       <div>
