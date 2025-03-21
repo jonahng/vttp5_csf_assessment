@@ -24,9 +24,6 @@ import vttp.batch5.csf.assessment.server.repositories.RestaurantRepository;
 @Service
 public class RestaurantService {
 
-    private final ServerApplication serverApplication;
-
-    private final RestaurantController restaurantController;
   @Autowired
   OrdersRepository ordersRepository;
 
@@ -34,10 +31,7 @@ public class RestaurantService {
   RestaurantRepository restaurantRepository;
 
 
-    RestaurantService(RestaurantController restaurantController, ServerApplication serverApplication) {
-        this.restaurantController = restaurantController;
-        this.serverApplication = serverApplication;
-    }
+
 
 
   // TODO: Task 2.2
@@ -84,8 +78,10 @@ public class RestaurantService {
 		.accept(MediaType.APPLICATION_JSON)
 		.body(paymentDetails);
 
-    ResponseEntity<String> response = restTemplate.exchange(request, String.class);
-
+    ResponseEntity<String> GatewayResponse = restTemplate.exchange(request, String.class);
+    //READING RESPONSE FROM SERVER
+    JsonReader jsonReader = Json.createReader(new StringReader(GatewayResponse.getBody()));
+    JsonObject jo1 = jsonReader.readObject();
 
 
   }
