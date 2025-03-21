@@ -1,14 +1,31 @@
 package vttp.batch5.csf.assessment.server.controllers;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
+import java.util.List;
 
+import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import vttp.batch5.csf.assessment.server.services.RestaurantService;
+
+
+@RestController
+@RequestMapping("")
 public class RestaurantController {
+  @Autowired
+  RestaurantService restaurantService;
 
   // TODO: Task 2.2
   // You may change the method's signature
-  public ResponseEntity<String> getMenus() {
-    return ResponseEntity.ok("{}");
+  @GetMapping("")
+  public ResponseEntity<List<Document>> getMenus() {
+    System.out.println("RESTAURANT SERVICE:" + restaurantService.getMenu().toString());
+    return ResponseEntity.ok(restaurantService.getMenu());
   }
 
   // TODO: Task 4

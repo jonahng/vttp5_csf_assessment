@@ -10,6 +10,11 @@ import { PlaceOrderComponent } from './components/place-order.component';
 
 import { ConfirmationComponent } from './components/confirmation.component';
 
+
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent, MenuComponent, PlaceOrderComponent, ConfirmationComponent

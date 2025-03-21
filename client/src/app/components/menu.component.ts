@@ -8,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class MenuComponent {
   // TODO: Task 2
+
+
+  
 }
