@@ -74,7 +74,7 @@ public class OrdersRepository {
       Document docToInsert = Document.parse(joString);
       Document result = template.insert(docToInsert, "orders");
   } catch (Exception e) {
-      // TODO: handle exception
+
       System.out.println("ERROR INSERTING ORDERS TO MONGO");
   }
   }
