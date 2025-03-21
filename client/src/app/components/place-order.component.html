@@ -1,10 +1,11 @@
 <div class="row mt-3">
   <div class="col">
-    <div class="fs-1 fw-bold text-primary">Confirm Order</div>
+
+    <div class="fs-1 fw-bold text-primary" >Confirm Order</div>
   </div>
 </div>
 
-<form>
+<form [formGroup]="form">
   <div class="row mb-2">
     <div class="col">
       <label for="username" class="form-label">Username</label>
@@ -23,7 +24,7 @@
         <button type="button" class="btn btn-danger">
           Start Over
         </button>
-        <button type="submit" class="btn btn-primary">Confirm</button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Confirm</button><!-- Disable button if username/password empty -->
       </div>
     </div>
   </div>
@@ -34,6 +35,8 @@
     <h2>Your Order</h2>
   </div>
 </div>
+
+
 <div class="row">
   <div class="col">
     <table class="table table-striped">
@@ -47,18 +50,20 @@
         </tr>
       </thead>
       <tbody>
+        @for (item of currentCart; track $index) { <!-- SHOW ITEMS IN THE CURRENT CART -->
         <tr>
+          <td>{{item.name}}</td>
+          <td> XXX </td>
+          <td> {{item.price}} </td>
+          <td> XXX </td>
           <td> 1 </td>
-          <td> XXX </td>
-          <td> $10 </td>
-          <td> XXX </td>
-          <td> $10 </td>
         </tr>
+      }
       </tbody>
       <tfoot>
         <tr>
           <td colspan="4"></td>
-          <td> $10 </td>
+          <td> {{subtotal}} </td> <!-- SHOW SUBTOTAL OF THE CURRENT CART -->
         </tr>
       </tfoot>
 

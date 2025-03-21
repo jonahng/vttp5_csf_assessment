@@ -36,6 +36,7 @@ export class MenuComponent implements OnInit{
       const element = this.currentCart[index];
       this.currentTotalPrice = this.currentTotalPrice + element.price
     }
+    this.infoSvc.currentCartSubtotal = this.currentTotalPrice
   }
 
   addItem(m : menuItem){
@@ -49,6 +50,7 @@ export class MenuComponent implements OnInit{
 
   placeOrder(){
     this.infoSvc.currentCart = this.currentCart;
+
 
   }
 

@@ -9,6 +9,7 @@ import { menuItem } from './models';
 export class InfostoreService {
   private http = inject(HttpClient)
   currentCart!: menuItem[]
+  currentCartSubtotal!: number
 
   constructor() { }
 
