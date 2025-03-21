@@ -4,10 +4,17 @@ public class PaymentResponse {
     private String payment_id;
     private String order_id;
     private long timestamp;
+    private double total;
 
 
 
     
+    public double getTotal() {
+        return total;
+    }
+    public void setTotal(double total) {
+        this.total = total;
+    }
     public PaymentResponse() {
     }
     public String getPayment_id() {

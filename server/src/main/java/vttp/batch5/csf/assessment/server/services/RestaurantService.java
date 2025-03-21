@@ -17,8 +17,7 @@ import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 import vttp.batch5.csf.assessment.models.FoodOrder;
 import vttp.batch5.csf.assessment.models.PaymentDetails;
-import vttp.batch5.csf.assessment.server.ServerApplication;
-import vttp.batch5.csf.assessment.server.controllers.RestaurantController;
+import vttp.batch5.csf.assessment.models.PaymentResponse;
 import vttp.batch5.csf.assessment.server.repositories.OrdersRepository;
 import vttp.batch5.csf.assessment.server.repositories.RestaurantRepository;
 
@@ -61,7 +60,7 @@ public class RestaurantService {
   }
 
 
-  public void payToGateway(FoodOrder foodOrder){
+  public String payToGateway(FoodOrder foodOrder){
     RestTemplate restTemplate = new RestTemplate();
 
     //creating payment details object
@@ -87,14 +86,41 @@ public class RestaurantService {
     int epochDate = GatewayResponseJson.getInt("timestamp");
     Date timestampDate = new Date(epochDate);
 
-    //adding to mysql place_orders
+    try {
+
+    //adding order details to mysql place_orders
     restaurantRepository.insertOrderAndPayment(foodOrder.getOrder_id(), GatewayResponseJson.getString("payment_id") ,
     timestampDate , foodOrder.getTotalOrderPrice(), foodOrder.getUsername());
-    
+    } catch (Exception e) {
+      System.out.println("ERROR WRITING TO MYSQL");
+    }
 
-    //add to mongodb
+    try {
+          //add order details to mongodb
+    ordersRepository.addOrders(foodOrder.getOrder_id(), foodOrder.getOrder_id(), GatewayResponseJson.getString("payment_id")
+    , foodOrder.getUsername(),foodOrder.getTotalOrderPrice() , timestampDate, foodOrder.getItems());
     
+    } catch (Exception e) {
+      System.out.println("ERROR WRITING TO MONGO");
+    }
 
+/*     PaymentResponse paymentResponse = new PaymentResponse();
+    paymentResponse.setOrder_id(foodOrder.getOrder_id());
+    paymentResponse.setPayment_id(GatewayResponseJson.getString("payment_id"));
+    paymentResponse.setTimestamp(epochDate);
+    paymentResponse.setTotal(foodOrder.getTotalOrderPrice()); */
+
+    JsonObject receiptObject = Json.createObjectBuilder()
+    .add("orderId", foodOrder.getOrder_id())
+    .add("paymentId", GatewayResponseJson.getString("payment_id"))
+    .add("total", foodOrder.getTotalOrderPrice())
+    .add("timestamp", epochDate)
+    .build();
+
+    String paymentResponse = receiptObject.toString();
+
+    //RETURNS THE PAYMENT RESPONSE BACK TO CONTROLLER TO SEND BACK TO FRONT END
+    return paymentResponse;
   }
 
 

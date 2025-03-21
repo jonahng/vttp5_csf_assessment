@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import vttp.batch5.csf.assessment.models.FoodOrder;
+import vttp.batch5.csf.assessment.models.PaymentResponse;
 import vttp.batch5.csf.assessment.server.ServerApplication;
 import vttp.batch5.csf.assessment.server.services.RestaurantService;
 
@@ -55,9 +56,17 @@ public class RestaurantController {
 
     //Make payment to pamyment service
     foodOrder.setTotalOrderPrice(100); //for testing
-    restaurantService.payToGateway(foodOrder);
-
-
-    return ResponseEntity.ok("{}");
+    String paymentResponse = "";
+  
+    try {
+      //TRY PAYING TO THE GATEWAY
+      paymentResponse = restaurantService.payToGateway(foodOrder);
+    } catch (Exception e) {
+      
+      //FOR IF PAYMENT ORDER FAILS:
+      return ResponseEntity.status(500).body("FAILED REASON: " + e.getMessage());
+    }
+  
+    return ResponseEntity.ok(paymentResponse);
   }
 }
