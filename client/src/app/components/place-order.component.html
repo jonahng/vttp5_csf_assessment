@@ -21,7 +21,7 @@
   <div class="row mb-5">
     <div class="col">
       <div class="d-flex justify-content-between">
-        <button type="button" class="btn btn-danger">
+        <button type="button" class="btn btn-danger" (click)="restart()"><!-- REROUTE TO VIEW 1 and clear form -->
           Start Over
         </button>
         <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Confirm</button><!-- Disable button if username/password empty -->

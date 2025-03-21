@@ -2,6 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { menuItem, Order, ServerReceipt } from '../models';
 import { InfostoreService } from '../infostore.service';
+import { Router } from '@angular/router';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-place-order',
@@ -13,11 +15,13 @@ export class PlaceOrderComponent implements OnInit{
 
   private fb = inject(FormBuilder)
   private infoSvc = inject(InfostoreService)
+  router = inject(Router)
 
   currentCart!: menuItem[]
   form!: FormGroup
   subtotal!: number
   paymentId!: string;
+  
 
   
 
@@ -49,10 +53,24 @@ export class PlaceOrderComponent implements OnInit{
     this.order = this.form.value
     this.infoSvc.checkout(this.order).subscribe({
       next: (response: ServerReceipt) =>{
-        this.paymentId = response.orderId;
+        this.paymentId = response.paymentId;
+        this.infoSvc.PaymentId=  response.paymentId;
+        this.infoSvc.OrderId = response.orderId;
+        this.infoSvc.Date = response.timestamp;
+    
+        this.router.navigate(['/confirm']) //GO TO VIEW 3
+      },
+      error: (error: HttpErrorResponse) =>{
+        alert("ERROR WITH SUBMITTING YOUR ORDER" + error.message);
       }
     })
 
+  }
+
+
+  restart(){
+    this.form = this.createForm(); //clear this form
+    this.router.navigate(['/']) //GO TO VIEW 1
   }
 
 }

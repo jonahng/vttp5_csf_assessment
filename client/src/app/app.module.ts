@@ -13,7 +13,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { InfostoreService } from './infostore.service';
 
-
+//DID routing in separate app-routing module
 /* const appRoutes: Routes = [
   { path: '', component: MenuComponent },
   //{ path: 'game/:gid', component: DetailsComponent },

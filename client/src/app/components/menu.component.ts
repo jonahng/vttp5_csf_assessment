@@ -3,6 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { lastValueFrom, Observable } from 'rxjs';
 import { menuItem } from '../models';
 import { InfostoreService } from '../infostore.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -19,6 +20,8 @@ export class MenuComponent implements OnInit{
   currentTotalPrice!: number
 
   currentCart!: menuItem[]
+
+  router = inject(Router)
 
 
 
@@ -50,6 +53,7 @@ export class MenuComponent implements OnInit{
 
   placeOrder(){
     this.infoSvc.currentCart = this.currentCart;
+    this.router.navigate(['/order']) //navigate to place order page
 
 
   }
