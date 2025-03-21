@@ -54,7 +54,9 @@ public class RestaurantController {
     foodOrder.setOrder_id(UUID.randomUUID().toString().replace("-", "").substring(0, 8));
 
     //Make payment to pamyment service
-    
+    foodOrder.setTotalOrderPrice(100); //for testing
+    restaurantService.payToGateway(foodOrder);
+
 
     return ResponseEntity.ok("{}");
   }

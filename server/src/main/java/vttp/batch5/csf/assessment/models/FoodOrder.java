@@ -7,9 +7,12 @@ public class FoodOrder {
     private String password;
     private JsonArray items;
     private String order_id;
+    private double totalOrderPrice;
 
 
     
+
+
     public FoodOrder() {
     }
 
@@ -38,6 +41,15 @@ public class FoodOrder {
     }
     public void setOrder_id(String order_id) {
         this.order_id = order_id;
+    }
+
+    public double getTotalOrderPrice() {
+        return totalOrderPrice;
+    }
+
+
+    public void setTotalOrderPrice(double totalOrderPrice) {
+        this.totalOrderPrice = totalOrderPrice;
     }
 
 

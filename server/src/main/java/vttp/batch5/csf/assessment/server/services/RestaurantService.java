@@ -66,10 +66,15 @@ public class RestaurantService {
   }
 
 
-  public void payToGateway(){
+  public void payToGateway(FoodOrder foodOrder){
     RestTemplate restTemplate = new RestTemplate();
+
+    //creating payment details object
     PaymentDetails paymentDetails = new PaymentDetails();
-    
+    paymentDetails.setPayer(foodOrder.getUsername());
+    paymentDetails.setOrder_id(foodOrder.getOrder_id());
+    paymentDetails.setPayee("NG YONG HAN JONAH");
+    paymentDetails.setPayment(foodOrder.getTotalOrderPrice());
 
 
     //sending post to the gateway
