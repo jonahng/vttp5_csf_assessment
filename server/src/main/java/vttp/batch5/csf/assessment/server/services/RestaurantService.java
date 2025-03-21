@@ -5,12 +5,17 @@ import java.util.List;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 import vttp.batch5.csf.assessment.models.FoodOrder;
+import vttp.batch5.csf.assessment.models.PaymentDetails;
 import vttp.batch5.csf.assessment.server.ServerApplication;
 import vttp.batch5.csf.assessment.server.controllers.RestaurantController;
 import vttp.batch5.csf.assessment.server.repositories.OrdersRepository;
@@ -58,6 +63,26 @@ public class RestaurantService {
 
 			System.out.println("USERNAME RECEIVED FROM CLIENT:" + foodOrder.getUsername() + foodOrder.getItems());
 			return foodOrder;
+  }
+
+
+  public void payToGateway(){
+    RestTemplate restTemplate = new RestTemplate();
+    PaymentDetails paymentDetails = new PaymentDetails();
+    
+
+
+    //sending post to the gateway
+    RequestEntity<PaymentDetails> request = RequestEntity.post("https://payment-service-production-a75a.up.railway.app/")
+    .contentType(MediaType.APPLICATION_JSON)
+    .header("X-Authenticate", paymentDetails.getPayer()) //setting payer as the x authenticate header
+		.accept(MediaType.APPLICATION_JSON)
+		.body(paymentDetails);
+
+    ResponseEntity<String> response = restTemplate.exchange(request, String.class);
+
+
+
   }
 
 
