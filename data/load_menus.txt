@@ -1,1 +1,9 @@
 # TODO: Task 1.1
+
+For local
+mongoimport -drestaurant -cmenus --type=json --jsonArray --file=C:\Users\65932\csf_assessment_template\data\menus.json
+
+
+
+To RAILWAY mongodb
+mongoimport --uri mongodb://<RAILWAY MONGO URL> -drestaurant -cmenus --type=json --jsonArray --file=C:\Users\65932\csf_assessment_template\data\menus.json
