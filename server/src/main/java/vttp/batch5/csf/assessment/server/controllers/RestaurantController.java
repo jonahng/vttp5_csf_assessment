@@ -22,7 +22,7 @@ public class RestaurantController {
 
   // TODO: Task 2.2
   // You may change the method's signature
-  @GetMapping("")
+  @GetMapping("/api/menu")
   public ResponseEntity<List<Document>> getMenus() {
     System.out.println("RESTAURANT SERVICE:" + restaurantService.getMenu().toString());
     return ResponseEntity.ok(restaurantService.getMenu());

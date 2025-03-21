@@ -21,11 +21,13 @@ public class OrdersRepository {
   // You may change the method's signature
   // Write the native MongoDB query in the comment below
   //
+
   //  Native MongoDB query here:
   // db.menus.find().sort({name: 1})
   public List<Document> getMenu() {
     Criteria criteria = Criteria.where("_id").exists(true);
-    Query query = Query.query(criteria).with(Sort.by(Direction.DESC, "name"));
+    Query query = Query.query(criteria).with(Sort.by(Direction.ASC, "name"));
+    //sorts according to the name in ascending order
     return template.find(query, Document.class, "menus");
 
   }
