@@ -36,6 +36,7 @@ public class RestaurantRepository {
 
     public boolean isLoginValid(String userName, String password){
         //this compares whether the password matches the password in the database
+        //Convert password to SHA256 to compare, since that is how it is done for mysql insertion
         if(password.equals(getPasswordForUserName(userName))){
             return true;
         }
